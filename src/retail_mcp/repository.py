@@ -202,9 +202,7 @@ class PostgresRetailRepository:
                 return self._model(Sale, existing)
             if not await connection.fetchval("SELECT 1 FROM customers WHERE id=$1", customer_id):
                 raise NotFoundError("Customer was not found")
-            item = await connection.fetchrow(
-                "SELECT * FROM inventory WHERE sku=$1 FOR UPDATE", sku
-            )
+            item = await connection.fetchrow("SELECT * FROM inventory WHERE sku=$1 FOR UPDATE", sku)
             if item is None:
                 raise NotFoundError("Inventory item was not found")
             if item["quantity"] < quantity:
@@ -231,9 +229,7 @@ class PostgresRetailRepository:
 
     async def update_inventory(self, sku: str, quantity_delta: int) -> InventoryItem:
         async with self.pool.connection() as connection, connection.transaction():
-            item = await connection.fetchrow(
-                "SELECT * FROM inventory WHERE sku=$1 FOR UPDATE", sku
-            )
+            item = await connection.fetchrow("SELECT * FROM inventory WHERE sku=$1 FOR UPDATE", sku)
             if item is None:
                 raise NotFoundError("Inventory item was not found")
             if item["quantity"] + quantity_delta < 0:
@@ -269,4 +265,3 @@ class PostgresRetailRepository:
 
     async def close(self) -> None:
         await self.pool.close()
-

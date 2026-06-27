@@ -114,7 +114,7 @@ app = Starlette(
         Route("/health/live", live),
         Route("/health/ready", ready),
         Route("/metrics", metrics),
-        Mount("/mcp", app=protected_mcp),
+        Mount("/", app=protected_mcp),
     ],
     middleware=[Middleware(TrustedHostMiddleware, allowed_hosts=["*"])],
     lifespan=lifespan,

@@ -46,4 +46,3 @@ def analyst() -> Principal:
 @pytest.fixture
 def inventory_manager() -> Principal:
     return Principal("inventory-test", Role.INVENTORY_MANAGER)
-

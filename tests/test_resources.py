@@ -39,3 +39,8 @@ async def test_role_cannot_read_sales(resource_manager, support) -> None:
     with pytest.raises(AuthorizationError):
         await resource_manager.sale(support, "sale_missing")
 
+
+async def test_analyst_reads_existing_sale(resource_manager, repository, analyst) -> None:
+    sale = await repository.process_order("cus_1001", "SKU-RED-01", 1, "resource-sale-test-0001")
+    result = await resource_manager.sale(analyst, sale.id)
+    assert result == sale

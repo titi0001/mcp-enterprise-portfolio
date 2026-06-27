@@ -59,4 +59,3 @@ async def test_support_creates_ticket(tool_manager, support) -> None:
     )
     assert ticket.customer_id == "cus_1001"
     assert ticket.status == "open"
-

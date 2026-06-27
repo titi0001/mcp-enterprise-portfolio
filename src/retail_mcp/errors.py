@@ -33,4 +33,3 @@ class DependencyUnavailableError(RetailMCPError):
 
 class RateLimitError(RetailMCPError):
     code = "rate_limit_exceeded"
-

@@ -62,6 +62,14 @@ uv run pytest
 uv run retail-mcp --transport http
 ```
 
+In another terminal, run the non-destructive protocol smoke test, or let it manage a
+temporary local server with `--start-server`:
+
+```bash
+uv run python scripts/smoke_test.py
+uv run python scripts/smoke_test.py --start-server
+```
+
 Connect an MCP client to `http://localhost:8000/mcp` and send one of these headers:
 
 ```text

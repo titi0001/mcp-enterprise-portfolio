@@ -39,4 +39,3 @@ def test_rate_limiter_rejects_request_after_capacity() -> None:
     limiter.check("alice")
     with pytest.raises(RateLimitError):
         limiter.check("alice")
-

@@ -26,4 +26,3 @@ async def test_circuit_breaker_resets_after_success() -> None:
 
     assert await breaker.call(succeed) == "ok"
     assert breaker.state == CircuitState.CLOSED
-

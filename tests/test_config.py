@@ -12,4 +12,3 @@ def test_production_rejects_development_credentials() -> None:
 def test_pool_minimum_cannot_exceed_maximum() -> None:
     with pytest.raises(ValidationError, match="cannot exceed"):
         Settings(database_pool_min=10, database_pool_max=2)
-

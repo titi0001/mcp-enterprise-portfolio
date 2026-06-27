@@ -39,7 +39,7 @@ mcp = FastMCP(
     lifespan=lifespan,
     stateless_http=True,
     json_response=True,
-    streamable_http_path="/",
+    streamable_http_path="/mcp",
 )
 
 
@@ -123,9 +123,7 @@ async def update_inventory(
 ) -> dict[str, object]:
     """Adjust inventory with validation and audit logging. Requires inventory:write."""
     try:
-        data = InventoryUpdateInput(
-            sku=sku.upper(), quantity_delta=quantity_delta, reason=reason
-        )
+        data = InventoryUpdateInput(sku=sku.upper(), quantity_delta=quantity_delta, reason=reason)
         result = await _container(ctx).tools.update_inventory(_principal(), data)
         return result.model_dump(mode="json")
     except Exception as exc:
@@ -170,4 +168,3 @@ def investigate_customer_issue(customer_id: str) -> str:
             ],
         }
     )
-

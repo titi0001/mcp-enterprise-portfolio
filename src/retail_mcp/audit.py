@@ -7,7 +7,6 @@ from typing import Any
 
 from retail_mcp.security import Principal, current_request_id
 
-
 audit_log = logging.getLogger("retail_mcp.audit")
 
 
@@ -32,4 +31,3 @@ class AuditLogger:
             "details": details or {},
         }
         audit_log.info(json.dumps(event, separators=(",", ":"), default=str))
-
