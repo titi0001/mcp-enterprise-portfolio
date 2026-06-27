@@ -21,6 +21,9 @@ runtime: ApplicationContainer | None = None
 @asynccontextmanager
 async def lifespan(_server: FastMCP) -> AsyncIterator[ApplicationContainer]:
     global runtime
+    if runtime is not None:
+        yield runtime
+        return
     container = await build_container(settings, authentication)
     runtime = container
     try:
