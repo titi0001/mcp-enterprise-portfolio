@@ -37,9 +37,7 @@ class Settings(BaseSettings):
     rate_limit_per_minute: int = Field(default=120, ge=1, le=100_000)
     request_timeout_seconds: float = Field(default=10.0, gt=0, le=120)
     api_keys: list[APIKeyDefinition] = [
-        APIKeyDefinition(
-            key="dev-customer-key", subject="local-support", role="customer_service"
-        ),
+        APIKeyDefinition(key="dev-customer-key", subject="local-support", role="customer_service"),
         APIKeyDefinition(
             key="dev-inventory-key", subject="local-inventory", role="inventory_manager"
         ),

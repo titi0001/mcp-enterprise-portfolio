@@ -60,4 +60,3 @@ class RedisCache:
 
     async def close(self) -> None:
         await self._redis.aclose()
-

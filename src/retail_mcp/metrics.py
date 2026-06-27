@@ -18,4 +18,3 @@ DEPENDENCY_HEALTH = Gauge(
     "retail_mcp_dependency_health", "Dependency health (1 healthy, 0 unhealthy)", ("dependency",)
 )
 IN_FLIGHT = Gauge("retail_mcp_in_flight_requests", "MCP requests currently in flight")
-

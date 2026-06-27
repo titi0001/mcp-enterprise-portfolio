@@ -206,9 +206,7 @@ class ToolManager:
         await self.cache.delete(f"inventory:{data.sku}")
         return result
 
-    async def create_ticket(
-        self, principal: Principal, data: CreateTicketInput
-    ) -> SupportTicket:
+    async def create_ticket(self, principal: Principal, data: CreateTicketInput) -> SupportTicket:
         AuthenticationManager.authorize(principal, Permission.TICKET_WRITE)
         return await self._run(
             principal,

@@ -75,4 +75,3 @@ async def build_container(
     )
     tools = ToolManager(repository, cache, audit, settings.request_timeout_seconds)
     return ApplicationContainer(settings, authentication, repository, cache, resources, tools)
-

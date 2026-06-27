@@ -101,4 +101,3 @@ class CreateTicketInput(BaseModel):
         if any(ord(char) < 32 and char not in "\n\t" for char in cleaned):
             raise ValueError("control characters are not allowed")
         return cleaned
-
