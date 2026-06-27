@@ -1,0 +1,31 @@
+flowchart LR
+    User[Customer-service user] --> Host[AI Host / MCP Client]
+    Host -->|Streamable HTTP + API key over TLS| Gateway[API Gateway / WAF]
+    Gateway --> MCP[Retail MCP Server]
+
+    subgraph Server[Retail MCP Server]
+      Auth[Authentication Manager\nAPI key + RBAC]
+      RM[Resource Manager\ncustomers / inventory / sales]
+      TM[Tool Manager\norders / stock / tickets]
+      Pool[Connection Pool]
+      Cache[Cache Adapter]
+      Metrics[Metrics + Audit]
+      Auth --> RM
+      Auth --> TM
+      RM --> Cache
+      RM --> Pool
+      TM --> Pool
+      RM --> Metrics
+      TM --> Metrics
+    end
+
+    MCP --> Auth
+    Pool --> DB[(PostgreSQL\nCRM / ERP projection)]
+    Cache --> Redis[(Redis)]
+    Metrics --> Prometheus[Prometheus]
+    Metrics --> Logs[Central Audit Logs]
+    Prometheus --> Grafana[Grafana + Alerts]
+    DB -. adapters/events .-> CRM[CRM]
+    DB -. adapters/events .-> ERP[ERP]
+    DB -. adapters/events .-> Support[Support Platform]
+

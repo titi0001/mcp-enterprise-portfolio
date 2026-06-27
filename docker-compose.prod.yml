@@ -1,0 +1,28 @@
+services:
+  mcp-server:
+    environment:
+      RETAIL_MCP_ENVIRONMENT: production
+      RETAIL_MCP_DATABASE_URL: ${DATABASE_URL:?DATABASE_URL is required}
+      RETAIL_MCP_REDIS_URL: ${REDIS_URL:?REDIS_URL is required}
+      RETAIL_MCP_API_KEYS: ${RETAIL_MCP_API_KEYS:?RETAIL_MCP_API_KEYS is required}
+    ports: []
+    expose:
+      - "8000"
+
+  gateway:
+    image: nginx:1.27-alpine
+    ports:
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${TLS_CERT_DIR:?TLS_CERT_DIR is required}:/etc/nginx/tls:ro
+    depends_on:
+      - mcp-server
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+

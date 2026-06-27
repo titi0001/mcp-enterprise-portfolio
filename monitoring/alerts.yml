@@ -1,0 +1,28 @@
+groups:
+  - name: retail-mcp
+    rules:
+      - alert: MCPServerDown
+        expr: up{job="retail-mcp"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations:
+          summary: Retail MCP server is unavailable
+      - alert: MCPHighErrorRate
+        expr: sum(rate(retail_mcp_requests_total{outcome=~"failure|not_found"}[5m])) / clamp_min(sum(rate(retail_mcp_requests_total[5m])), 0.001) > 0.05
+        for: 10m
+        labels: {severity: warning}
+        annotations:
+          summary: MCP error rate is above 5 percent
+      - alert: MCPHighP95Latency
+        expr: histogram_quantile(0.95, sum by (le) (rate(retail_mcp_request_duration_seconds_bucket[5m]))) > 1
+        for: 10m
+        labels: {severity: warning}
+        annotations:
+          summary: MCP p95 latency is above one second
+      - alert: MCPDatabaseUnavailable
+        expr: retail_mcp_dependency_health{dependency="database"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations:
+          summary: MCP database dependency is unhealthy
+
