@@ -102,8 +102,9 @@ async def metrics(_request: Request) -> Response:
 
 @contextlib.asynccontextmanager
 async def lifespan(_app: Starlette):
-    async with mcp.session_manager.run():
-        yield
+    async with server_module.lifespan(mcp):
+        async with mcp.session_manager.run():
+            yield
 
 
 protected_mcp = SecurityHeadersMiddleware(ApiKeyMiddleware(mcp.streamable_http_app()))
