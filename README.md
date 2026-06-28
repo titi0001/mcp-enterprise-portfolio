@@ -7,6 +7,7 @@ A complete enterprise portfolio that connects AI clients to retail customer, inv
 1. **MCP architecture assessment and design:** [architecture](docs/architecture.md), [MCP evaluation](docs/evaluation.md), [risk assessment](docs/risk-assessment.md), [ROI](docs/roi.md), and [executive summary](docs/executive-summary.md).
 2. **Production MCP server:** resources, tools, prompt, PostgreSQL adapter, Redis cache, connection pool, validation, transactions, idempotency, tests, and API documentation.
 3. **Enterprise framework:** [security](docs/security.md), Prometheus/Grafana, Docker, Kubernetes, TLS gateway, CI/CD, [deployment](docs/deployment.md), and [disaster recovery](docs/disaster-recovery.md).
+4. **Multi-agent extension proposal:** [dialogue synthesis, safeguards, conflict resolution, and human intervention](docs/multi-agent-dialogue.md).
 
 ## Architecture
 
